@@ -3,24 +3,47 @@ console.log('Content script');
 
 $(document).ready(function() {
 
+    var trumpname = $( "*:contains('Trump')");
+
+    if( trumpname.length > 0){
+
+        var imgArr = [];
+        console.log(angular.element('img').length, "how many images");
+
+        angular.element('img').each(function(index,img){
+
+            //fun times remove image
+            angular.element('img').css('display','none');
+
+            imgArr.push(img.src);
+
+        })
+
+        console.log(imgArr);
+
+       console.log(this, "this");
+       //trumpname.css( "background-color", "yellow" );
+       //var alexface = chrome.extension.getURL("images/me.jpg");
+       //angular.element('img').each(function(index, image){
+       //    angular.element(image).attr('src', alexface);
+       //    angular.element(image).attr('srcset', alexface);
+       //    angular.element(image).attr('alt', "alex");
+       //});
 
 
-    if ($( "*:contains('Trump')" )){
+   }else{
+       console.log('not found');
+   }
 
-        var alexface = chrome.extension.getURL("images/me.jpg");
-        $('img').each(function(index, image){
-            $(image).attr('src', alexface);
-            $(image).attr('srcset', alexface);
-            $(image).attr('alt', "alex");
-        });
-
-    }else{
-        console.log("no trump")
-    }
+    var trumptext = "trump";
 
 
+    //
+    //angular.element('*', 'body').filter(function(){
+    //    return angular.element(this).text().toLowerCase() === 'trump';})
+    //
 
-    //$('*', 'body')
+    //angular.element('*', 'body')
     //    .andSelf()
     //    .contents()
     //    .filter(function(){
