@@ -37,6 +37,9 @@ $(document).ready(function() {
         var faceY;
         var noseX;
         var noseY;
+        var nosewh;
+        var noseTipX;
+        var noseTipY;
 
         //serialize func
         var serialize = function(obj) {
@@ -108,24 +111,32 @@ $(document).ready(function() {
                     imgH = recognized.images[0].transaction.height;
                     imgW = recognized.images[0].transaction.width;
 
+                    //API
+                    noseTipX = detected.images[0].faces[0].noseTipX;
+                    noseTipY = detected.images[0].faces[0].noseTipY;
+
                     //x and y origin of window
                     //faceX = recognized.images[0].transaction.topLeftX;
                     //faceY = recognized.images[0].transaction.topLeftY;
 
+                    //regulates the size of the nose relative to image
+                    nosewh = Math.floor(imgW/3);
+
                     //detected returns noseTip x and y points (confirm if other points exist)
-                    noseX = detected.images[0].faces[0].noseTipX;
-                    noseY = detected.images[0].faces[0].noseTipY+ imgH/2;
+                    noseX =  Math.floor(noseTipX);
+                    //we are pushing from bottom so we need to take the difference between image height and noseTipY
+                    //add it to teh noseTipY(in case the image is not a square)
+                    //then add the dimension of the nose
+                    //add half ball dimension because of 0,0 origin not center of nose
+                    noseY = Math.floor((imgH - noseTipY) + noseTipY + (nosewh+(nosewh/2)));
 
                     //measure the actual image that we are inputting
-                    console.log(trump.width,trump.height, "trumpimg");
+                    console.log(trump.width,trump.height, "original image dim");
+                    console.log("noseX",noseX,"noseY",noseY);
 
                     //attempt to measure nose location based on face window (fail)
                     //var noseLeft=(faceX + imgH/2 -(imgH/6)) +"px";
                     //var noseBottom = (faceY + imgW +(imgW/25)) +"px";
-
-                    //regulates the size of the nose relative to image
-                    var nosewh = imgW/3 +"px";
-
 
                     //create and append nose class
                     $(trump).after("<div class ='nose'></div>");
@@ -135,7 +146,7 @@ $(document).ready(function() {
                         "position": "relative",
                         "width": nosewh,
                         "height": nosewh,
-                        "background": "red",
+                        "background": "#FF0000",
                         "left":noseX,
                         "bottom":noseY,
                         //"left": noseLeft,
