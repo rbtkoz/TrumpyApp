@@ -30,7 +30,8 @@
       ],
       "js": [
         "lib/jquery-2.1.4.min.js",
-        "lib/angular.min.js"
+        "lib/angular.min.js",
+        "lib/async.js"
         //"scripts/contentscript.js"
 
 

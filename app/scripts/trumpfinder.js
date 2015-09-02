@@ -35,7 +35,6 @@ $(document).ready(function() {
 
         //for each element in trump Arr send to Face Recognition API
 
-        //imgArr.each(function(index, trump){
 
         var trump = imgArr[0];
         var imgH;
